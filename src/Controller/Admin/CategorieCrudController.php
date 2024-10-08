@@ -23,8 +23,8 @@ class CategorieCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setEntityLabelInSingular('Equipe Categorie')
-            ->setEntityLabelInPlural('Equipe categorie')
+            ->setEntityLabelInSingular('Categorie')
+            ->setEntityLabelInPlural('Categorie')
             ->setSearchFields(['nom', 'role'])
         ;
     }
@@ -32,16 +32,15 @@ class CategorieCrudController extends AbstractCrudController
     public function configureFilters(Filters $filters): Filters
     {
         return $filters
-            ->add(EntityFilter::new('equipe'))
+            ->add(EntityFilter::new('categorie'))
         ;
     }
 
     public function configureFields(string $pageName): iterable
     {
-        yield AssociationField::new('equipe');
-        yield TextField::new('niveau');
-        yield IntegerField::new('numero');
-        yield IntegerField::new('effectif')
+        yield AssociationField::new('categorie');
+        yield TextField::new('nom');
+        yield TextField::new('role')
         ;
     }
 
