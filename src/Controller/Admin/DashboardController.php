@@ -1,12 +1,9 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Admin;
 
 use App\Entity\Categorie;
-use App\Entity\Club;
 use App\Entity\Equipe;
-use App\Entity\Evenement;
-use App\Entity\TypeEvenement;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -19,8 +16,9 @@ class DashboardController extends AbstractDashboardController
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
-        return parent::index();$routeBuilder = $this->container->get(AdminUrlGenerator::class);
-        $url = $routeBuilder->setController(ClubCrudController::class)->generateUrl();
+        #return parent::index();
+        $routeBuilder = $this->container->get(AdminUrlGenerator::class);
+        $url = $routeBuilder->setController(CategorieCrudController::class)->generateUrl();
 
         return $this->redirect($url);
         // Option 1. You can make your dashboard redirect to some common page of your backend
@@ -49,10 +47,7 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linktoRoute('Back to the website', 'fas fa-home', 'homepage');
-        yield MenuItem::linkToCrud('Club', 'fas fa-map-marker-alt', Club::class);
+        yield MenuItem::linkToCrud('Equipes', 'fas fa-map-marker-alt', Equipe::class);
         yield MenuItem::linkToCrud('Categorie', 'fas fa-comments', Categorie::class);
-        yield MenuItem::linkToCrud('Equipe', 'fas fa-comments', Equipe::class);
-        yield MenuItem::linkToCrud('Evenement', 'fas fa-comments', Evenement::class);
-        yield MenuItem::linkToCrud('TypeEvenement', 'fas fa-comments', TypeEvenement::class);
     }
 }

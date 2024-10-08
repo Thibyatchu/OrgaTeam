@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Equipe Guestbook - {{ equipe }}{% endblock %}
+
+{% block body %}
+    <h2>{{ equipe }} Equipe</h2>
+
+    {% if categorie|length > 0 %}
+        {% for categorie in categorie %}
+
+            <h4>{{ categorie.nom }}</h4>
+
+            <p>{{ categorie.role }}</p>
+        {% endfor %}
+    {% else %}
+        <div>No categorie have been posted yet for this equipe.</div>
+    {% endif %}
+{% endblock %}

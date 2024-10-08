@@ -10,6 +10,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\EntityFilter;
 
 class CategorieCrudController extends AbstractCrudController
@@ -19,14 +20,30 @@ class CategorieCrudController extends AbstractCrudController
         return Categorie::class;
     }
 
-    /*
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            ->setEntityLabelInSingular('Equipe Categorie')
+            ->setEntityLabelInPlural('Equipe categorie')
+            ->setSearchFields(['nom', 'role'])
+        ;
+    }
+
+    public function configureFilters(Filters $filters): Filters
+    {
+        return $filters
+            ->add(EntityFilter::new('equipe'))
+        ;
+    }
+
     public function configureFields(string $pageName): iterable
     {
-        return [
-            IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
-        ];
+        yield AssociationField::new('equipe');
+        yield TextField::new('niveau');
+        yield IntegerField::new('numero');
+        yield IntegerField::new('effectif')
+        ;
     }
-    */
+
+
 }

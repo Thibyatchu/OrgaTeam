@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\EquipeRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: EquipeRepository::class)]
+#[ApiResource]
 class Equipe
 {
     #[ORM\Id]
@@ -40,6 +42,12 @@ class Equipe
     {
         return $this->niveau;
     }
+
+    public function __toString(): string
+    {
+        return $this->getNiveau();
+    }
+
 
     public function setNiveau(string $niveau): static
     {
