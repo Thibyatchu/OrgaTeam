@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class OrgaController extends AbstractController
 {
-    #[Route('/', name: 'homepage')]
+    #[Route('/admin', name: 'homepage')]
     public function index(EquipeRepository $equipeRepository): Response
     {
         return $this->render('orga/index.html.twig', [
