@@ -22,17 +22,4 @@ class OrgaController extends AbstractController
         ]);
     }
 
-    #[Route('/equipe/{id}', name: 'equipe')]
-    public function show(Request $request, Equipe $equipe, CategorieRepository $categorieRepository): Response
-    {
-        $categorie = new Comment();
-        $form = $this->createForm(CommentType::class, $categorie);
-
-        return $this->render('orga/show.html.twig', [
-            'equipe' => $equipe,
-            'categorie' => $categorieRepository->findBy(['equipe' => $equipe]),
-            'categorie_form' => $form->createView(),
-        ]);
-    }
-
 }

@@ -18,14 +18,17 @@ class Categorie
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $role = null;
-
     /**
      * @var Collection<int, Equipe>
      */
     #[ORM\OneToMany(targetEntity: Equipe::class, mappedBy: 'categorie')]
     private Collection $equipes;
+
+    #[ORM\Column]
+    private ?int $nombre_equipe = null;
+
+    #[ORM\Column]
+    private ?int $effectif_joueur = null;
 
     public function __construct()
     {
@@ -45,18 +48,6 @@ class Categorie
     public function setNom(string $nom): static
     {
         $this->nom = $nom;
-
-        return $this;
-    }
-
-    public function getRole(): ?string
-    {
-        return $this->role;
-    }
-
-    public function setRole(string $role): static
-    {
-        $this->role = $role;
 
         return $this;
     }
@@ -87,6 +78,30 @@ class Categorie
                 $equipe->setCategorie(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNombreEquipe(): ?int
+    {
+        return $this->nombre_equipe;
+    }
+
+    public function setNombreEquipe(int $nombre_equipe): static
+    {
+        $this->nombre_equipe = $nombre_equipe;
+
+        return $this;
+    }
+
+    public function getEffectifJoueur(): ?int
+    {
+        return $this->effectif_joueur;
+    }
+
+    public function setEffectifJoueur(int $effectif_joueur): static
+    {
+        $this->effectif_joueur = $effectif_joueur;
 
         return $this;
     }

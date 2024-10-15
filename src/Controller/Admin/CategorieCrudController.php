@@ -19,30 +19,4 @@ class CategorieCrudController extends AbstractCrudController
     {
         return Categorie::class;
     }
-
-    public function configureCrud(Crud $crud): Crud
-    {
-        return $crud
-            ->setEntityLabelInSingular('Categorie')
-            ->setEntityLabelInPlural('Categorie')
-            ->setSearchFields(['nom', 'role'])
-        ;
-    }
-
-    public function configureFilters(Filters $filters): Filters
-    {
-        return $filters
-            ->add(EntityFilter::new('categorie'))
-        ;
-    }
-
-    public function configureFields(string $pageName): iterable
-    {
-        yield AssociationField::new('categorie');
-        yield TextField::new('nom');
-        yield TextField::new('role')
-        ;
-    }
-
-
 }
