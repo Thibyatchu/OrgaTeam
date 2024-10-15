@@ -67,6 +67,11 @@ class TypeEvenement
         return $this;
     }
 
+    public function __toString(): string
+    {
+        return $this->getNom();
+    }
+
     public function getLieu(): ?string
     {
         return $this->lieu;

@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello EvenementController!{% endblock %}
+
+{% block body %}
+<link rel="stylesheet" href="{{ asset('teamtheme/assets/css/style.css') }}">
+
+<div class="container-scroller">
+    <div class="example-wrapper">
+        <h1>Hello in Evenement ! </h1>
+
+        <ul>
+        {% for evenement in evenements %}
+            <h3>{{ evenement.nom}} - {{ evenement.typeEvenement.nom|default('na')}}</h3>
+        {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

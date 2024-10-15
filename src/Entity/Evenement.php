@@ -16,6 +16,9 @@ class Evenement
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $Nom = null;
+    
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $date_debut = null;
 
@@ -37,10 +40,17 @@ class Evenement
     #[ORM\OneToMany(targetEntity: Equipe::class, mappedBy: 'evenement')]
     private Collection $equipes;
 
+    
+
     public function __construct()
     {
         $this->clubs = new ArrayCollection();
         $this->equipes = new ArrayCollection();
+    }
+
+    public function __toString(): string
+    {
+        return $this->getNom();
     }
 
     public function getId(): ?int
@@ -48,6 +58,18 @@ class Evenement
         return $this->id;
     }
 
+    public function getNom(): ?string
+    {
+        return $this->Nom;
+    }
+
+    public function setNom(?string $Nom): static
+    {
+        $this->Nom = $Nom;
+
+        return $this;
+    }
+    
     public function getDateDebut(): ?\DateTimeInterface
     {
         return $this->date_debut;
