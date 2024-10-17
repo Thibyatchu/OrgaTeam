@@ -7,12 +7,12 @@
 
 <div class="container-scroller">
     <div class="example-wrapper">
-        <h1>Hello {{ controller_name }}! ✅</h1>
+        <h1>Hello in Equipe ! </h1>
 
-        This friendly message is coming from:
         <ul>
-            <li>Your controller at <code>/app/src/Controller/EquipeController.php</code></li>
-            <li>Your template at <code>/app/templates/equipe/index.html.twig</code></li>
+            {% for equipe in equipes %}
+                <h3>{{ equipe.club.nom}} - {{ equipe.niveau}} - {{ equipe.categorie.nom|default('na')}}</h3>
+            {% endfor %}
         </ul>
     </div>
 </div>

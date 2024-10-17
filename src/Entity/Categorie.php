@@ -82,6 +82,11 @@ class Categorie
         return $this;
     }
 
+    public function __toString(): string
+    {
+        return $this->getNom();
+    }
+
     public function getNombreEquipe(): ?int
     {
         return $this->nombre_equipe;
