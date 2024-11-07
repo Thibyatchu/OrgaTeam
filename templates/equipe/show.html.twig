@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}  
+    <link rel="stylesheet" href="{{ asset('teamtheme/assets/css/style.css') }}">
+
+    <div class="container-scroller">
+        <div class="form-container">
+            {{ form_start(equipes_form) }}
+
+                <div class="col-sm-9">                   
+                    {{ form_label(equipes_form.niveau) }}
+                    {{ form_widget(equipes_form.niveau) }}
+                </div>
+
+                <div class="col-sm-9">                   
+                    {{ form_row(equipes_form.numero) }}
+                </div>
+
+                <div class="col-sm-9">                   
+                    {{ form_row(equipes_form.effectif) }}
+                </div>
+
+                <div class="col-sm-9">                   
+                    {{ form_row(equipes_form.club) }}
+                </div>
+
+                <div class="col-sm-9">                   
+                    {{ form_row(equipes_form.categorie) }}
+                </div>
+
+            {{ form_end(equipes_form) }}
+            <a href="../equipe" class="btn btn-primary">Retour</a>
+        </div>
+    </div>
+{% endblock %}

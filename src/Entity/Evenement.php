@@ -17,13 +17,20 @@ class Evenement
     private ?int $id = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\NotBlank]
     private ?string $Nom = null;
     
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\NotBlank]
     private ?\DateTimeInterface $date_debut = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\NotBlank]
     private ?\DateTimeInterface $date_fin = null;
+
+    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    private ?string $lieu = null;
 
     /**
      * @var Collection<int, Club>
@@ -31,26 +38,39 @@ class Evenement
     #[ORM\ManyToMany(targetEntity: Club::class, mappedBy: 'evenement')]
     private Collection $clubs;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?TypeEvenement $type_evenement = null;
-
     /**
      * @var Collection<int, Equipe>
      */
     #[ORM\OneToMany(targetEntity: Equipe::class, mappedBy: 'evenement')]
     private Collection $equipes;
 
-    
+    #[ORM\ManyToOne(inversedBy: 'evenements')]
+    private ?TypeEvenement $evenements = null;
+
+    /**
+     * @var Collection<int, Equipe>
+     */
+    #[ORM\ManyToMany(targetEntity: Equipe::class, inversedBy: 'evenements')]
+    private Collection $equipe;
+
+    /**
+     * @return Collection<int, Equipe>
+     */
+    public function getEquipe(): Collection
+    {
+        return $this->equipe;
+    }
 
     public function __construct()
     {
         $this->clubs = new ArrayCollection();
         $this->equipes = new ArrayCollection();
+        $this->equipe = new ArrayCollection();
     }
 
     public function __toString(): string
     {
-        return $this->getNom();
+        return $this->getId();
     }
 
     public function getId(): ?int
@@ -121,17 +141,6 @@ class Evenement
         return $this;
     }
 
-    public function getTypeEvenement(): ?TypeEvenement
-    {
-        return $this->type_evenement;
-    }
-
-    public function setTypeEvenement(?TypeEvenement $type_evenement): static
-    {
-        $this->type_evenement = $type_evenement;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Equipe>
@@ -159,6 +168,30 @@ class Evenement
                 $equipe->setEvenement(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLieu(): ?string
+    {
+        return $this->lieu;
+    }
+
+    public function setLieu(string $lieu): static
+    {
+        $this->lieu = $lieu;
+
+        return $this;
+    }
+
+    public function getEvenements(): ?TypeEvenement
+    {
+        return $this->evenements;
+    }
+
+    public function setEvenements(?TypeEvenement $evenements): static
+    {
+        $this->evenements = $evenements;
 
         return $this;
     }

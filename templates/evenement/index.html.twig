@@ -11,9 +11,10 @@
 
         <ul>
         {% for evenement in evenements %}
-            <h3>{{ evenement.nom}} - {{ evenement.typeEvenement.nom|default('na')}}</h3>
+            <h3>{{ evenement.Nom}} - {{ evenement.evenements.nom|default('na')}}</h3>
         {% endfor %}
         </ul>
+        <a href="evenement/add" class="btn btn-primary">Ajouter un évènement</a>
     </div>
 </div>
 {% endblock %}

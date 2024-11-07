@@ -34,8 +34,8 @@ class EquipeCrudController extends AbstractCrudController
             ->setEntityLabelInPlural('club Equipe')
             ->setSearchFields(['Niveau', 'Numero', 'Effectif'])
 
-            ->setEntityLabelInSingular('evenement Equipe')
-            ->setEntityLabelInPlural('evenement Equipe')
+            ->setEntityLabelInSingular('evenements Equipe')
+            ->setEntityLabelInPlural('evenements Equipe')
             ->setSearchFields(['Niveau', 'Numero', 'Effectif'])
         ;
     }
@@ -45,7 +45,6 @@ class EquipeCrudController extends AbstractCrudController
         return $filters
             ->add(EntityFilter::new('categorie'))
             ->add(EntityFilter::new('club'))
-            ->add(EntityFilter::new('evenement'))
         ;
     }
 

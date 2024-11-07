@@ -11,9 +11,10 @@
 
         <ul>
             {% for equipe in equipes %}
-                <h3>{{ equipe.club.nom}} - {{ equipe.niveau}} - {{ equipe.categorie.nom|default('na')}}</h3>
+                <h3>{{ equipe.categorie.nom|default('na')}} - {{ equipe.club.nom}} - {{ equipe.niveau}}</h3>
             {% endfor %}
         </ul>
+        <a href="equipe/add" class="btn btn-primary">Ajouter une équipe</a>
     </div>
 </div>
 {% endblock %}

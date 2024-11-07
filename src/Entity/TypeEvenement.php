@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TypeEvenementRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -20,11 +22,16 @@ class TypeEvenement
     #[ORM\Column]
     private ?bool $pour_tous = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $date_even = null;
+    /**
+     * @var Collection<int, Evenement>
+     */
+    #[ORM\OneToMany(targetEntity: Evenement::class, mappedBy: 'evenements')]
+    private Collection $evenements;
 
-    #[ORM\Column(length: 255)]
-    private ?string $lieu = null;
+    public function __construct()
+    {
+        $this->evenements = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -55,31 +62,37 @@ class TypeEvenement
         return $this;
     }
 
-    public function getDateEven(): ?\DateTimeInterface
-    {
-        return $this->date_even;
-    }
-
-    public function setDateEven(\DateTimeInterface $date_even): static
-    {
-        $this->date_even = $date_even;
-
-        return $this;
-    }
-
     public function __toString(): string
     {
         return $this->getNom();
     }
 
-    public function getLieu(): ?string
+    /**
+     * @return Collection<int, Evenement>
+     */
+    public function getEvenements(): Collection
     {
-        return $this->lieu;
+        return $this->evenements;
     }
 
-    public function setLieu(string $lieu): static
+    public function addEvenement(Evenement $evenement): static
     {
-        $this->lieu = $lieu;
+        if (!$this->evenements->contains($evenement)) {
+            $this->evenements->add($evenement);
+            $evenement->setEvenements($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvenement(Evenement $evenement): static
+    {
+        if ($this->evenements->removeElement($evenement)) {
+            // set the owning side to null (unless already changed)
+            if ($evenement->getEvenements() === $this) {
+                $evenement->setEvenements(null);
+            }
+        }
 
         return $this;
     }
