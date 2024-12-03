@@ -46,7 +46,7 @@
 	php_server
 }
 
-http://10.187.22.27 {
+http://10.187.22.26 {
 	log {
 		# Redact the authorization query parameter that can be set by Mercure
 		format filter {
@@ -84,7 +84,7 @@ http://10.187.22.27 {
 	php_server
 }
 
-http://std27.beaupeyrat.com {
+http://std26.beaupeyrat.com {
 	log {
 		# Redact the authorization query parameter that can be set by Mercure
 		format filter {
