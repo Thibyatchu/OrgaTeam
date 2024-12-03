@@ -154,7 +154,7 @@ class Evenement
     {
         if (!$this->equipes->contains($equipe)) {
             $this->equipes->add($equipe);
-            $equipe->setEvenement($this);
+            $equipe->addEvenement($this);
         }
 
         return $this;
