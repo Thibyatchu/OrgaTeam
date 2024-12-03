@@ -28,6 +28,9 @@ class TypeEvenement
     #[ORM\OneToMany(targetEntity: Evenement::class, mappedBy: 'evenements')]
     private Collection $evenements;
 
+    #[ORM\Column(length: 255)]
+    private ?string $test = null;
+
     public function __construct()
     {
         $this->evenements = new ArrayCollection();
@@ -93,6 +96,18 @@ class TypeEvenement
                 $evenement->setEvenements(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTest(): ?string
+    {
+        return $this->test;
+    }
+
+    public function setTest(string $test): static
+    {
+        $this->test = $test;
 
         return $this;
     }
