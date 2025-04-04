@@ -3,6 +3,6 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
-lexik_jwt_authentication_token:
+auth:
   path: /api/login
   methods: ['POST']
