@@ -5,5 +5,4 @@ controllers:
     type: attribute
 lexik_jwt_authentication_token:
   path: /api/login
-  controller: lexik_jwt_authentication.controller.token:__invoke
   methods: ['POST']
