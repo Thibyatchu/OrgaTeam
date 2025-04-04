@@ -2,28 +2,57 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiProperty;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use App\Repository\AdminRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\State\UserPasswordHasher;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
+#[ApiResource(
+    operations: [
+        new GetCollection(),
+        new Post(processor: AdminPasswordHasher::class, validationContext: ['groups' => ['Default', 'admin:create']]),
+        new Get(),
+        new Put(processor: AdminPasswordHasher::class),
+        new Patch(processor: AdminPasswordHasher::class),
+        new Delete(),
+    ],
+    normalizationContext: ['groups' => ['admin:read']],
+    denormalizationContext: ['groups' => ['admin:create', 'admin:update']],
+)]
 #[ORM\Entity(repositoryClass: AdminRepository::class)]
 #[ORM\Table(name: '`admin`')]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_USERNAME', fields: ['username'])]
 class Admin implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    #[Groups(['admin:read'])]
     #[ORM\Id]
+    #[ORM\Column(type: 'integer')]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 180)]
+    #[Assert\NotBlank]
+    #[Assert\Type(type: "string")]
+    #[Groups(['admin:read', 'admin:create', 'admin:update'])]
+    #[ORM\Column(length: 180, unique: true)]
     private ?string $username = null;
 
     /**
      * @var list<string> The user roles
      */
-    #[ORM\Column]
+    #[ORM\Column(type: 'json')]
     private array $roles = [];
 
     /**
@@ -31,6 +60,10 @@ class Admin implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
+
+    #[Assert\NotBlank(groups: ['admin:create'])]
+    #[Groups(['admin:create', 'admin:update'])]
+    private ?string $plainPassword = null;
 
     public function getId(): ?int
     {
@@ -98,12 +131,23 @@ class Admin implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword(?string $plainPassword): static
+    {
+        $this->plainPassword = $plainPassword;
+
+        return $this;
+    }
+
     /**
      * @see UserInterface
      */
     public function eraseCredentials(): void
     {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+        $this->plainPassword = null;
     }
 }

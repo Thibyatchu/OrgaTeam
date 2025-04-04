@@ -27,8 +27,6 @@ class Categorie
     #[ORM\Column]
     private ?int $nombre_equipe = null;
 
-    #[ORM\Column]
-    private ?int $effectif_joueur = null;
 
     public function __construct()
     {
@@ -95,18 +93,6 @@ class Categorie
     public function setNombreEquipe(int $nombre_equipe): static
     {
         $this->nombre_equipe = $nombre_equipe;
-
-        return $this;
-    }
-
-    public function getEffectifJoueur(): ?int
-    {
-        return $this->effectif_joueur;
-    }
-
-    public function setEffectifJoueur(int $effectif_joueur): static
-    {
-        $this->effectif_joueur = $effectif_joueur;
 
         return $this;
     }
