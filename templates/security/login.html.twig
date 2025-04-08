@@ -16,8 +16,8 @@
         {% if error %}
             <div class="error-container">
                 <h1>Une erreur est survenue</h1>
-                {% if error_message is defined %}
-                    <p>{{ error_message }}</p>
+                {% if error.message is defined %}
+                    <p>{{ error.message }}</p>
                 {% else %}
                     <p>Votre nom d'utilisateur ou votre mot de passe est incorrecte. Veuillez réessayer.</p>   
                 {% endif %}
