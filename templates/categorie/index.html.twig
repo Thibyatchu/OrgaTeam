@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <link rel="stylesheet" href="{{ asset('teamtheme/assets/css/style.css') }}">
+
+    <div class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Liste des Catégories</h4>
+
+                    <!-- Affichage des catégories existantes -->
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for categorie in categories %}
+                                <tr>
+                                    <td>{{ categorie.nom }}</td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="3" class="text-center">Aucune catégorie trouvée.</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <!-- Bouton pour ajouter une nouvelle catégorie -->
+                    <a href="{{ path('app_categorie_add') }}" class="btn btn-primary mb-3">Ajouter une catégorie</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

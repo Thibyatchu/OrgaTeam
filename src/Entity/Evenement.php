@@ -95,10 +95,9 @@ class Evenement
         return $this->date_debut;
     }
 
-    public function setDateDebut(\DateTimeInterface $date_debut): static
+    public function setDateDebut(?\DateTimeInterface $date_debut): self
     {
         $this->date_debut = $date_debut;
-
         return $this;
     }
 
@@ -194,5 +193,10 @@ class Evenement
         $this->evenements = $evenements;
 
         return $this;
+    }
+
+    public function __call(string $name, array $arguments)
+    {
+        // Logique pour gérer les appels dynamiques
     }
 }

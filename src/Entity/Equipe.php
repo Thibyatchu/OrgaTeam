@@ -21,9 +21,6 @@ class Equipe
     private ?string $niveau = null;
 
     #[ORM\Column]
-    private ?int $numero = null;
-
-    #[ORM\Column]
     private ?int $effectif = null;
 
     #[ORM\ManyToOne(inversedBy: 'equipe')]
@@ -65,18 +62,6 @@ class Equipe
     public function setNiveau(string $niveau): static
     {
         $this->niveau = $niveau;
-
-        return $this;
-    }
-
-    public function getNumero(): ?int
-    {
-        return $this->numero;
-    }
-
-    public function setNumero(int $numero): static
-    {
-        $this->numero = $numero;
 
         return $this;
     }

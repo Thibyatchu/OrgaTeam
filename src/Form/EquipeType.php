@@ -19,7 +19,6 @@ class EquipeType extends AbstractType
     {
         $builder
             ->add('niveau')
-            ->add('numero')
             ->add('effectif')
             ->add('club', EntityType::class, [
                 'class' => Club::class,

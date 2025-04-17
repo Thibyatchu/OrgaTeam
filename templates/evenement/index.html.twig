@@ -1,20 +1,43 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello EvenementController!{% endblock %}
+{% block title %}Liste des Événements{% endblock %}
 
 {% block body %}
 <link rel="stylesheet" href="{{ asset('teamtheme/assets/css/style.css') }}">
 
-<div class="container-scroller">
-    <div class="example-wrapper">
-        <h1>Hello in Evenement ! </h1>
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Liste des Événements</h4>
 
-        <ul>
-        {% for evenement in evenements %}
-            <h3>{{ evenement.Nom}} - {{ evenement.evenements.nom|default('na')}}</h3>
-        {% endfor %}
-        </ul>
-        <a href="evenement/add" class="btn btn-primary">Ajouter un évènement</a>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Date Début</th>
+                            <th>Date Fin</th>
+                            <th>Lieu</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for evenement in evenements %}
+                            <tr>
+                                <td>{{ evenement.nom }}</td>
+                                <td>{{ evenement.date_debut|date('d/m/Y') }}</td>
+                                <td>{{ evenement.date_fin|date('d/m/Y') }}</td>
+                                <td>{{ evenement.lieu }}</td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="5" class="text-center">Aucun événement trouvé.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <a href="{{ path('app_evenement_add') }}" class="btn btn-primary">Ajouter un événement</a>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

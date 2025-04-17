@@ -54,7 +54,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Equipes', 'fas fa-map-marker-alt', Equipe::class);
         yield MenuItem::linkToCrud('Categorie', 'fas fa-map-marker-alt', Categorie::class);
         yield MenuItem::linkToCrud('Evenement', 'fas fa-map-marker-alt', Evenement::class);
-        yield MenuItem::linkToCrud('User', 'fas fa-map-marker-alt', User::class);
         yield MenuItem::linkToCrud('TypeEvenement', 'fas fa-map-marker-alt', TypeEvenement::class);
     }
 }

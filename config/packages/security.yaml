@@ -1,58 +1,58 @@
 security:
     # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
     password_hashers:
+        App\Entity\User: 'auto'
         App\Entity\Admin: 'auto'
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
-        # used to reload user from session & other features (e.g. switch_user)
-        app_user_provider:
+        app_admin_provider:
             entity:
                 class: App\Entity\Admin
                 property: username
-        # used to reload user from session & other features (e.g. switch_user)
     firewalls:
-        login:
-            pattern: ^/auth
-            stateless: true
-            json_login:
-                check_path: /auth # The name in routes.yaml is enough for mapping
-                username_path: username
-                password_path: password
-                success_handler: lexik_jwt_authentication.handler.authentication_success
-                failure_handler: lexik_jwt_authentication.handler.authentication_failure
-        api:
-            pattern: ^/api/
-            stateless: true
-            provider: app_user_provider
-            jwt: ~
-        main:
-            pattern: ^/
-            stateless: true
-            jwt: ~
-            provider: app_user_provider
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        admin:
+            pattern: ^/admin
+            stateless: false
+            provider: app_admin_provider
             form_login:
                 login_path: app_login
                 check_path: app_login
                 default_target_path: admin
             logout:
                 path: app_logout
-                # where to redirect after logout
-                target: /login
-            entry_point: form_login
-        dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
-            # activate different ways to authenticate
-            # https://symfony.com/doc/current/security.html#the-firewall
+                target: /
 
-            # https://symfony.com/doc/current/security/impersonating_user.html
-            # switch_user: true
+        main:
+            pattern: ^/
+            stateless: false
+            provider: app_admin_provider
+            form_login:
+                login_path: app_user_login
+                check_path: app_user_login
+                default_target_path: app_home
+                enable_csrf: true
+            logout:
+                path: app_user_logout
+                target: /
 
-    # Easy way to control access for large sections of your site
-    # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/admin, roles: ROLE_USER }
-        - { path: ^/$, roles: PUBLIC_ACCESS } # Allows accessing the Swagger UI
+        # Étape 1 : Accès public uniquement à / et /register
+        - { path: ^/register, roles: PUBLIC_ACCESS }
+        - { path: ^/$, roles: PUBLIC_ACCESS }
+
+        # Étape 2 : Accès utilisateur connecté
+        - { path: ^/home, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/equipe, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/evenement, roles: IS_AUTHENTICATED_FULLY }
+
+        # Étape 3 : Accès admin connecté
+        #- { path: ^/admin, roles: ROLE_ADMIN }
+
+        # Accès api
         - { path: ^/api/docs, roles: PUBLIC_ACCESS } # Allows accessing the Swagger UI docs
         - { path: ^/auth, roles: PUBLIC_ACCESS }
         - { path: ^/api/, roles: IS_AUTHENTICATED_FULLY }

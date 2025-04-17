@@ -24,10 +24,6 @@ class Categorie
     #[ORM\OneToMany(targetEntity: Equipe::class, mappedBy: 'categorie')]
     private Collection $equipes;
 
-    #[ORM\Column]
-    private ?int $nombre_equipe = null;
-
-
     public function __construct()
     {
         $this->equipes = new ArrayCollection();
@@ -83,17 +79,5 @@ class Categorie
     public function __toString(): string
     {
         return $this->getNom();
-    }
-
-    public function getNombreEquipe(): ?int
-    {
-        return $this->nombre_equipe;
-    }
-
-    public function setNombreEquipe(int $nombre_equipe): static
-    {
-        $this->nombre_equipe = $nombre_equipe;
-
-        return $this;
     }
 }

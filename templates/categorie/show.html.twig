@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <link rel="stylesheet" href="{{ asset('teamtheme/assets/css/style.css') }}">
+
+    <div class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Ajouter une Catégorie</h4>
+
+                    <!-- Formulaire pour ajouter une catégorie -->
+                    {{ form_start(categorie_form) }}
+
+                        <div class="form-group">
+                            {{ form_label(categorie_form.nom) }}
+                            {{ form_widget(categorie_form.nom, { 'attr': { 'class': 'form-control' } }) }}
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Ajouter</button>
+                        <a href="{{ path('app_categorie') }}" class="btn btn-secondary">Retour à la liste</a>
+
+                    {{ form_end(categorie_form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

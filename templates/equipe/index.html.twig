@@ -5,16 +5,39 @@
 {% block body %}
 <link rel="stylesheet" href="{{ asset('teamtheme/assets/css/style.css') }}">
 
-<div class="container-scroller">
-    <div class="example-wrapper">
-        <h1>Hello in Equipe ! </h1>
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Liste des Équipes</h4>
 
-        <ul>
-            {% for equipe in equipes %}
-                <h3>{{ equipe.categorie.nom|default('na')}} - {{ equipe.club.nom}} - {{ equipe.niveau}}</h3>
-            {% endfor %}
-        </ul>
-        <a href="equipe/add" class="btn btn-primary">Ajouter une équipe</a>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Catégorie</th>
+                            <th>Club</th>
+                            <th>Niveau</th>
+                            <th>Effectif</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for equipe in equipes %}
+                            <tr>
+                                <td>{{ equipe.categorie.nom|default('na') }}</td>
+                                <td>{{ equipe.club.nom }}</td>
+                                <td>{{ equipe.niveau }}</td>
+                                <td>{{ equipe.effectif|default('na') }}</td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="4" class="text-center">Aucune equipe trouvée.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <a href="{{ path('app_equipe_add') }}" class="btn btn-primary">Ajouter une équipe</a>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
