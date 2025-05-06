@@ -1,18 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Bienvenue sur OrgaTeam{% endblock %}
 
 {% block body %}
 <link rel="stylesheet" href="{{ asset('teamtheme/assets/css/style.css') }}">
 
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/app/src/Controller/HomeController.php</code></li>
-        <li>Your template at <code>/app/templates/home/index.html.twig</code></li>
+<div class="container text-center mt-5">
+    <h1 class="display-4">Bienvenue sur <span class="text-primary">OrgaTeam</span>!</h1>
+    <p class="lead mt-3">La plateforme idéale pour organiser vos équipes et événements sportifs.</p>
+    <hr class="my-4">
+    <p>Avec OrgaTeam, vous pouvez :</p>
+    <ul class="list-unstyled">
+        <li>📅 Planifier et gérer vos événements sportifs.</li>
+        <li>👥 Suivre et organiser vos équipes.</li>
+        <li>📊 Visualiser les statistiques et performances.</li>
     </ul>
+    <div class="mt-4">
+        <a href="{{ path('app_evenement') }}" class="btn btn-primary btn-lg">Voir les événements</a>
+        <a href="{{ path('app_equipe') }}" class="btn btn-secondary btn-lg">Gérer les équipes</a>
+    </div>
 </div>
 {% endblock %}
