@@ -7874,6 +7874,17 @@ a.text-dark:hover, a.text-dark:focus {
 /* === Template mixins === */
 /* Miscellaneous Mixins */
 .list-wrapper ul li .form-check, .list-wrapper ul li .form-check .form-check-label {
+
+/* ...existing code... */
+
+.logo-img {
+    max-width: 100px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* ...existing code... */
   text-overflow: ellipsis;
   overflow: hidden;
   max-width: 100%;
