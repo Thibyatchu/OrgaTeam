@@ -50,7 +50,7 @@ security:
         - { path: ^/evenement, roles: IS_AUTHENTICATED_FULLY }
 
         # Étape 3 : Accès admin connecté
-        - { path: ^/admin, roles: ROLE_ADMIN }
+        #- { path: ^/admin, roles: ROLE_ADMIN }
 
         # Accès api
         - { path: ^/api/docs, roles: PUBLIC_ACCESS } # Allows accessing the Swagger UI docs

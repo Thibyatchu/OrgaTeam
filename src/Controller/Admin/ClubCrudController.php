@@ -11,6 +11,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\EntityFilter;
+use Doctrine\ORM\EntityManagerInterface;
 
 class ClubCrudController extends AbstractCrudController
 {
@@ -29,4 +30,20 @@ class ClubCrudController extends AbstractCrudController
         ];
     }
     */
+
+    public function updateEntity(EntityManagerInterface $entityManager, $entityInstance): void
+    {
+        if (method_exists($entityInstance, 'updateNombreJoueur')) {
+            $entityInstance->updateNombreJoueur();
+        }
+        parent::updateEntity($entityManager, $entityInstance);
+    }
+
+    public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
+    {
+        if (method_exists($entityInstance, 'updateNombreJoueur')) {
+            $entityInstance->updateNombreJoueur();
+        }
+        parent::persistEntity($entityManager, $entityInstance);
+    }
 }

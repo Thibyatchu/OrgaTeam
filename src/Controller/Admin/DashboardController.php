@@ -8,6 +8,8 @@ use App\Entity\Equipe;
 use App\Entity\User;
 use App\Entity\Evenement;
 use App\Entity\TypeEvenement;
+use App\Entity\Message;
+use App\Entity\MessageTraite;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -55,5 +57,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Categorie', 'fas fa-map-marker-alt', Categorie::class);
         yield MenuItem::linkToCrud('Evenement', 'fas fa-map-marker-alt', Evenement::class);
         yield MenuItem::linkToCrud('TypeEvenement', 'fas fa-map-marker-alt', TypeEvenement::class);
+        yield MenuItem::linkToCrud('Message', 'fas fa-envelope', Message::class);
     }
 }
