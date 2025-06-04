@@ -34,9 +34,6 @@ class Club
     #[ORM\OneToMany(targetEntity: Equipe::class, mappedBy: 'club')]
     private Collection $equipe;
 
-    #[ORM\Column(type: "integer", options: ["default" => 0])]
-    private ?int $nombreJoueur = 0;
-
     public function __construct()
     {
         $this->evenement = new ArrayCollection();
@@ -129,30 +126,5 @@ class Club
         }
 
         return $this;
-    }
-
-    public function getNombreJoueur(): ?int
-    {
-        return $this->nombreJoueur;
-    }
-
-    public function setNombreJoueur(int $nombreJoueur): static
-    {
-        $this->nombreJoueur = $nombreJoueur;
-
-        return $this;
-    }
-
-    /**
-     * Calcule le nombre total de joueurs pour ce club
-     * (somme des effectifs des équipes du club)
-     */
-    public function updateNombreJoueur(): void
-    {
-        $total = 0;
-        foreach ($this->getEquipe() as $equipe) {
-            $total += $equipe->getEffectif() ?? 0;
-        }
-        $this->setNombreJoueur($total);
     }
 }
